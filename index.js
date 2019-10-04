@@ -159,18 +159,36 @@ app.get('/trainer/:name/edit', async (req, res) => {
 });
 
 app.post('/trainer/:name/update', async (req, res) => {
+    var flag = true;
+    const client = await pool.connect();
     console.log("OG: ", req.params.name);
-    console.log("NEW: ",req.body.newname);
+    console.log("NEW: ", req.body.newname);
+    const check = await client.query('SELECT * FROM trainers ORDER BY name DESC');
+    const checking = (check) ? check.rows : null;
+    console.log(checking);
+    checking.forEach(function (c) {
+       // console.log("c", c);
+       // console.log("c.name ", c.name);
+        if (c.name == req.body.newname) {
+            flag = false;
+        }
+    });
     try {
-        const client = await pool.connect()
+        var datas = {};
+        if (flag==true) {
             const resulttoki = await client.query("UPDATE tokimons SET trainer = '" + req.body.newname + "' WHERE  trainer = '" + req.params.name + "' ");
             const resulttrainer = await client.query("UPDATE trainers SET name = '" + req.body.newname + "' WHERE  name = '" + req.params.name + "' ");
             var message = "Success! Trainer " + req.params.name + " has been renamed to " + req.body.newname;
             var newname = req.body.newname;
-            var color = "green";
-            var datas = {};
-            datas.old = req.params.name;
             datas.name = newname;
+            var color = "green";
+        }
+        else {
+            var message = "Sorry! " + req.body.newname + " is already in use.";
+            var color = "red";
+            datas.name = req.params.name;
+        }
+            datas.old = req.params.name;
             datas.msg = message;
             datas.color = color;
             console.log("datas=", datas);

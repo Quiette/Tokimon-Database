@@ -29,9 +29,11 @@
 &nbsp&nbsp&nbsp&nbsp&nbsp
 
 Trainer: <select name="trainers">
+	<option value=<%=r.trainer%>> <%=r.trainer%> </option>
 <%data.trainers.forEach(function(t){%>
-
+	<% if (t.name!= r.trainer){%>
 	<option value=<%=t.name%>> <%=t.name%> </option>
+	<%}%>
 
 <%});%>
 </select></h2>
