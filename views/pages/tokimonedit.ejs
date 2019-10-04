@@ -2,7 +2,6 @@
 <html>
 
 <data.resultsforEach(function(r){}%>
-<%t = data.trainers%>
 <head>
 <title><%= r.name %>: Edit</title>
 </head>
@@ -29,23 +28,30 @@
 <h2 align="center">Tokimon: <input type="text" name="newname" id="newname" placeholder=<%=r.name%> required maxlength="50"/>
 &nbsp&nbsp&nbsp&nbsp&nbsp
 
-Trainer: <select name="trainers"><%= r.trainer %></select></h2>
+Trainer: <select name="trainers">
+<%data.trainers.forEach(function(t){%>
+
+	<option value=<%=t.name%>> <%=t.name%> </option>
+
+<%});%>
+</select></h2>
+
 <br>
-<p align="center"> Height: <input type="number" name="newh" id="newh" placeholder=<%=r.height%> min="0"/></p>
+<p align="center"> Height: <input type="number" name="newh" id="newh" placeholder=<%=r.height%> required min="0"/></p>
 
-<p align="center"> Weight:  <input type="number" name="neww" id="neww" placeholder=<%=r.weight%> min="0"/></p>
+<p align="center"> Weight:  <input type="number" name="neww" id="neww" placeholder=<%=r.weight%> required min="0"/></p>
 
-<p align="center"> Fly: <input type="number" name="newfly" id="newfly" placeholder=<%=r.fly%> min="0" max="100"/></p>
+<p align="center"> Fly: <input type="number" name="newfly" id="newfly" placeholder=<%=r.fly%> required min="0" max="100"/></p>
 
-<p align="center"> Fight: <input type="number" name="newfight" id="newfight" placeholder=<%=r.fight%> min="0" max="100"/></p>
+<p align="center"> Fight: <input type="number" name="newfight" id="newfight" placeholder=<%=r.fight%> required min="0" max="100"/></p>
 
-<p align="center"> Fire: <input type="number" name="newfire" id="newfire" placeholder=<%=r.fire%> min="0" max="100"/></p>
+<p align="center"> Fire: <input type="number" name="newfire" id="newfire" placeholder=<%=r.fire%> required min="0" max="100"/></p>
 
-<p align="center"> Water: <input type="number" name="newwater" id="newwater" placeholder=<%=r.water%> min="0" max="100"/></p>
+<p align="center"> Water: <input type="number" name="newwater" id="newwater" placeholder=<%=r.water%> required min="0" max="100"/></p>
 
-<p align="center"> Electric: <input type="number" name="newelectric" id="newelectric" placeholder=<%=r.electric%> min="0" max="100"/></p>
+<p align="center"> Electric: <input type="number" name="newelectric" id="newelectric" placeholder=<%=r.electric%> required min="0" max="100"/></p>
 
-<p align="center"> Ice: <input type="number" name="newice" id="newice" placeholder=<%=r.ice%> min="0" max="100"/></p>
+<p align="center"> Ice: <input type="number" name="newice" id="newice" placeholder=<%=r.ice%> required min="0" max="100"/></p>
 
 <br><br>
 <button id="tupdate" type="submit" name="tupdate">UPDATE TOKIMON</button>

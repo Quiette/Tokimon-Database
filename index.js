@@ -136,8 +136,8 @@ app.get('/trainer/:name/details', async (req, res)=> {
         const trainers = { 'trainers': (trainer) ? trainer.rows : null };
         var datas = {};
         datas.results = (result) ? result.rows : null;
-        datas.trainer = (trainer) ? trainer.rows : null;
-        console.log("datatrain=", datas.trainer);
+        datas.trainers = (trainer) ? trainer.rows : null;
+        console.log("datatrain=", datas.trainers);
         const data = { 'data': (datas) };
         res.render('pages/trainersdetails', data);
         client.release();
@@ -204,12 +204,12 @@ app.get('/tokimon/:name/edit', async (req, res) => {
     try {
         const client = await pool.connect()
         const result = await client.query("SELECT * FROM tokimons WHERE name = '" + req.params.name + "'");
-        const results = { 'results': (result) ? result.rows : null };
+        //const results = { 'results': (result) ? result.rows : null };
         const train = await client.query('SELECT * FROM trainers ORDER BY name ASC');
-        const trainers = { 'trainers': (train) ? train.rows : null };
+        //const trainers = { 'trainers': (train) ? train.rows : null };
         var datas = {};
-        datas.results = results;
-        datas.trainers = trainers;
+        datas.results =  (result) ? result.rows : null;
+        datas.trainers = (train) ? train.rows : null;
         console.log("datasresultsname", datas.results.name);
         console.log("datastrainers", datas.trainers);
         const data = { 'data': (datas) };

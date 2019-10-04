@@ -96,10 +96,18 @@ div2 {
 #tupdate {
     position: absolute;
     text-align: center;
-    border: none;
+    border: 2px solid black;
     outline: none;
-    padding: 5px;
-    background-color: lightblue;
+    padding: 10px;
+    color: #494949;
+    background: #ffffff;
     bottom: 40%;
     left: 45%;
+    transition-duration: 0.2s;
+}
+
+#tupdate:hover {
+    color: white;
+    background: cornflowerblue;
+    border-color: cornflowerblue;
 }
