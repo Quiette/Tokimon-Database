@@ -1,8 +1,8 @@
 const express = require('express')
 const path = require('path')
 const PORT = process.env.PORT || 5000
-
 const { Pool } = require('pg');
+
 var pool;
 if (process.env.DATABASE_URL) {
     pool = new Pool({
@@ -10,7 +10,6 @@ if (process.env.DATABASE_URL) {
     })
     console.log("used old");
 }
-
 else {
     pool = new Pool({
 
@@ -39,7 +38,7 @@ app.get('/', (req, res) => res.render('pages/index'));
 app.post('/home', (req, res) => res.redirect('/'));
 
 var count = 0;
-//is equivalent to .get('/', function (req, res) {res.render('pages/index'})
+///is equivalent to .get('/', function (req, res) {res.render('pages/index'})
 
 pool.query('DELETE FROM tokimons', (err, res) => { //REMOVES ROWS
     if (err) {
@@ -89,20 +88,7 @@ pool.query("INSERT INTO trainers (name, tokinum) values('Rhea', 0) ON CONFLICT (
     }
 });
 
-
-app.post('/tokimons', async (req, res) => {
-    try {
-        const client = await pool.connect()
-        const result = await client.query('SELECT * FROM tokimons');
-        const results = { 'results': (result) ? result.rows : null };
-        res.render('pages/tokimons', results);
-        client.release();
-    } catch (err) {
-        console.error(err);
-        res.send("Error " + err);
-    }
-});
-
+//////////////////TRAINER PAGES////////////
 app.post('/trainers', async (req, res) => {
     try {
         const client = await pool.connect()
@@ -114,16 +100,6 @@ app.post('/trainers', async (req, res) => {
         console.error(err);
         res.send("Error " + err);
     }
-});
-
-app.post('/login', (req, res) => {
-    //console.log("post");
-    console.log(req.body);
-    console.log(req.body.user);
-    console.log(req.body.pwd);
-    var username = req.body.user;
-    var password = req.body.pwd;
-    res.send(`Hello, ${username}. You have password ${password}`) //`` means act as really long strings
 });
 
 app.get('/trainer/:name/details', async (req, res)=> {
@@ -202,6 +178,20 @@ app.post('/trainer/:name/update', async (req, res) => {
     }
 });
 
+//////////////////TOKIMON PAGES////////////
+app.post('/tokimons', async (req, res) => {
+    try {
+        const client = await pool.connect()
+        const result = await client.query('SELECT * FROM tokimons');
+        const results = { 'results': (result) ? result.rows : null };
+        res.render('pages/tokimons', results);
+        client.release();
+    } catch (err) {
+        console.error(err);
+        res.send("Error " + err);
+    }
+});
+
 app.get('/tokimon/:name/details', async (req, res) => {
     console.log(req.params.name);
     console.log("SELECT * FROM tokimons WHERE name = '" + req.params.name + "'");
@@ -238,4 +228,16 @@ app.get('/tokimon/:name/edit', async (req, res) => {
     }
 });
 
-    app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+
+app.post('/login', (req, res) => {
+    //console.log("post");
+    console.log(req.body);
+    console.log(req.body.user);
+    console.log(req.body.pwd);
+    var username = req.body.user;
+    var password = req.body.pwd;
+    res.send(`Hello, ${username}. You have password ${password}`) //`` means act as really long strings
+});
+
+app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+
