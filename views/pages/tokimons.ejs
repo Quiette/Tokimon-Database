@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Tokimon Database</title>
+</head>
+
+<link rel="stylesheet" href="/stylesheets/tokimons.css">
+
+<body>
+<div2> 
+<form class="" action="/home" method="post">
+                        <button id="home" type="submit" name="button1">HOME</button>
+</form>
+
+<form class="" action="" method="post">
+                        <button id="toki" type="button" name="button2">TOKIMONS</button>
+</form>
+
+<form class="" action="/trainers" method="post">
+                        <button id="trainer" type="submit" name="button2">TRAINERS</button>
+</form>
+
+</div2>
+<div class="container">
+<div1>
+<h2 align="center">Tokimon Database</h2>
+
+<table>
+       <tr>
+            <th>Name</th>
+			<th>Trainer</th>
+            <th>Weight</th>
+            <th>Height</th>
+			<th>Fly</th>
+            <th>Fight</th>
+            <th>Fire</th>
+			<th>Water</th>
+            <th>Electric</th>
+            <th>Ice</th>
+			<th>Total</th>
+			<th> <th>
+      </tr>
+
+    <% results.forEach(function(r) { %>
+		<tr>
+            <th><%= r.name %></th>
+            <th><a href="/trainer/<%=r.trainer%>/details"><%= r.trainer %></a></th>
+            <th><%= r.weight %></th>
+			<th><%= r.height %></th>
+			<th><%= r.fly %></th>
+			<th><%= r.fight %></th>
+			<th><%= r.fire %></th>
+			<th><%= r.water %></th>
+			<th><%= r.electric %></th>
+			<th><%= r.ice %></th>
+			<th><%= r.total %></th>
+			<th><a href="/tokimon/<%=r.name%>/details">Details</a></th>
+		</tr>
+    <% }); %>
+
+</div1>
+
+<p align=center id='new'><a href="trainer/new">Add New Tokimon</a></p>
+</div>
+</body>
+</html>
+

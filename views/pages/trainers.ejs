@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Trainer Database</title>
+</head>
+
+<link rel="stylesheet" href="/stylesheets/trainers.css">
+
+<body>
+<div2> 
+<form class="" action="/home" method="post">
+                        <button id="home" type="submit" name="button1">HOME</button>
+</form>
+
+<form class="" action="/tokimons" method="post">
+                        <button id="toki" type="submit" name="button2">TOKIMONS</button>
+</form>
+
+<form class="" action="" method="post">
+                        <button id="trainer" type="button" name="button2">TRAINERS</button>
+</form>
+
+</div2>
+<div class="container">
+<div1>
+<h2 align="center">Trainer Database</h2>
+
+<table>
+       <tr>
+            <th>Name</th>
+            <th>Tokimons</th>
+			<th> </th>
+      </tr>
+
+   <% results.forEach(function(t) { %>
+		<tr>
+            <th><%= t.name %></th>
+            <th><%= t.tokinum %></th>
+			<th><a href="trainer/<%=t.name%>/details">Details</a></th>
+		</tr>
+    <% }); %>
+
+</div1>
+
+<p align="center" id='new'><a href="trainer/new">Add New Trainer</a></p>
+</div>
+</body>
+</html>

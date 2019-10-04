@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title><%=name%>: Edit</title>
+</head>
+
+<link rel="stylesheet" href="/stylesheets/traineredit.css">
+<script src="js/traineredit.js" defer></script>
+
+<body>
+<div2> 
+<form class="" action="/home" method="post">
+                        <button id="home" type="submit" name="button1">HOME</button>
+</form>
+
+<form class="" action="/tokimons" method="post">
+                        <button id="toki" type="submit" name="button2">TOKIMONS</button>
+</form>
+
+<form class="" action="/trainers" method="post">
+                        <button id="trainer" type="submit" name="button2">TRAINERS</button>
+</form>
+
+</div2>
+<div class="container">
+<div1>
+<h2 align="center">Trainer:
+<form class="" action="/trainer/<%=name%>/update" method="post">
+	<input type="text" name="newname" id="newname" placeholder=<%=name%> /> 
+</h2>
+<br>
+	<button id="tupdate" type="submit" name="tupdate">UPDATE TRAINER</button>
+</form>
+<br>
+<p align="center">Note: Level changes automatically. Tokimon possesion must be changed in Tokimon settings </p>
+<br><br>
+<br>
+
+<p align=center id='back''><a href="/trainer/<%=name%>/details">Back</a>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,89 @@
+table {
+    background-color: white;
+    align-self: center;
+    width: 80%;
+    right: 10%;
+    position: absolute;
+}
+
+div1 {
+    right: 5%;
+    position: absolute;
+    background-color: white;
+    border-bottom: 20px solid #333333;
+    width: 90%;
+    height: 577px;
+    overflow: auto;
+    top: 5%;
+}
+
+tr:first-child {
+    font-weight: 900;
+    padding-bottom: 0px;
+    text-decoration: underline;
+}
+
+h2 {
+    color: deepskyblue;
+    left: 49%;
+}
+
+
+html {
+    background-color: lightblue
+}
+
+div2 {
+    right: 5%;
+    position: absolute;
+    background-color: black;
+    height: 40px;
+    width: 90%;
+}
+
+#home {
+    background-color: black;
+    left: 5%;
+    height: 40px;
+    width: 20%;
+}
+
+button {
+    color: white;
+    position: absolute;
+    top: 0;
+    height: 40px;
+    width: 20%;
+    text-align: center;
+    border: none;
+    outline: none;
+    font-weight: 900;
+    padding-bottom: 13px;
+    transition-duration: 0.2s;
+}
+
+#trainer {
+    left: 45%;
+    top: 0;
+    background-color: dimgrey;
+}
+
+#home:hover {
+    background-color: grey;
+}
+
+#toki {
+    left: 25%;
+    top: 0;
+    background-color: black;
+}
+
+#toki:hover {
+    background-color: grey;
+}
+
+#new {
+    position: absolute;
+    left: 45.5%;
+    bottom: 5%;
+}

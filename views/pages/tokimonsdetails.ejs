@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<%r = results.find(x=>x!==undefined)%>
+<html>
+
+<head>
+<title> <%= r.name %>: Details</title>
+</head>
+
+<link rel="stylesheet" href="/stylesheets/details.css">
+
+<body>
+<div2> 
+<form class="" action="/home" method="post">
+                        <button id="home" type="submit" name="button1">HOME</button>
+</form>
+
+<form class="" action="/tokimons" method="post">
+                        <button id="toki" type="submit" name="button2">TOKIMONS</button>
+</form>
+
+<form class="" action="/trainers" method="post">
+                        <button id="trainer" type="submit" name="button2">TRAINERS</button>
+</form>
+
+</div2>
+<div class="container">
+<div1>
+
+<h2 align="center">Tokimon: <%= r.name %> &nbsp&nbsp&nbsp&nbsp&nbsp	Trainer: <%= r.trainer %></h2>
+<br>
+<p align="center"> Height: <%= r.height %></p>
+
+<p align="center"> Weight: <%= r.weight %></p>
+
+<p align="center"> Fly: <%= r.fly %></p>
+
+<p align="center"> Fight: <%= r.fight %></p>
+
+<p align="center"> Fire: <%= r.fire %></p>
+
+<p align="center"> Water: <%= r.water %></p>
+
+<p align="center"> Electric: <%= r.electric %></p>
+
+<p align="center"> Ice: <%= r.ice %></p>
+
+<p align="center"> Total: <%= r.total %> </p>
+<br><br>
+ 
+<p align="center" id='change'><a href="edit">Edit Tokimon</a> || <a href="delete">Delete Tokimon</a></p>
+</div1>
+<br>
+</div>
+</body>
+</html>

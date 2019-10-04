@@ -1,0 +1,66 @@
+h1{
+    color: deepskyblue;
+    align-self: center;
+}
+
+html{
+    background-color: lightblue
+}
+
+div1 {
+    right: 5%;
+    position: absolute;
+    background-color: white;
+    border-bottom: 20px solid #333333;
+    width: 86%;
+    padding-left: 2%;
+    padding-right: 2%;
+    height: 80%;
+    top: 5%;
+}
+
+div2 {
+    right: 5%;
+    position: absolute;
+    background-color: black;
+    height: 40px;
+    width: 90%;
+}
+
+#home {
+    background-color: dimgrey;
+    left: 5%;
+    top: 0;
+}
+button {
+    color: white;
+    position: absolute;
+    top: 0;
+    height: 40px;
+    width: 20%;
+    text-align: center;
+    border: none;
+    outline: none;
+    font-weight: 900;
+    padding-bottom: 13px;
+    transition-duration: 0.2s;
+}
+#trainer {
+    left: 45%;
+    top: 0;
+    background-color: black;
+}
+#trainer:hover {
+    background-color: grey;
+}
+#toki {
+    left: 25%;
+    top: 0;
+    background-color: black;
+}
+#toki:hover {
+        background-color: grey;
+}
+h4{
+    font-size: 20px;
+}
