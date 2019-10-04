@@ -163,18 +163,11 @@ app.post('/trainer/:name/update', async (req, res) => {
     console.log("NEW: ",req.body.newname);
     try {
         const client = await pool.connect()
-        if (req.body.newname) {
             const resulttoki = await client.query("UPDATE tokimons SET trainer = '" + req.body.newname + "' WHERE  trainer = '" + req.params.name + "' ");
             const resulttrainer = await client.query("UPDATE trainers SET name = '" + req.body.newname + "' WHERE  name = '" + req.params.name + "' ");
             var message = "Success! Trainer " + req.params.name + " has been renamed to " + req.body.newname;
             var newname = req.body.newname;
             var color = "green";
-        }
-         else {
-            var message = "Fail! Trainer " + req.params.name + " cannot have no name! Please try again.";
-            var newname = req.params.name;
-            var color = "red";
-        }
             var datas = {};
             datas.old = req.params.name;
             datas.name = newname;
@@ -184,7 +177,8 @@ app.post('/trainer/:name/update', async (req, res) => {
             const data = { 'data': (datas) };
             res.render('pages/updatetrainer', data);
             client.release();
-    } catch (err) {
+    }
+    catch (err) {
         console.error(err);
         res.send("Error " + err);
     }
@@ -211,8 +205,15 @@ app.get('/tokimon/:name/edit', async (req, res) => {
         const client = await pool.connect()
         const result = await client.query("SELECT * FROM tokimons WHERE name = '" + req.params.name + "'");
         const results = { 'results': (result) ? result.rows : null };
-        console.log(results);
-        res.render('pages/tokimonedit', results);
+        const train = await client.query('SELECT * FROM trainers ORDER BY name ASC');
+        const trainers = { 'trainers': (train) ? train.rows : null };
+        var datas = {};
+        datas.results = results;
+        datas.trainers = trainers;
+        console.log("datasresultsname", datas.results.name);
+        console.log("datastrainers", datas.trainers);
+        const data = { 'data': (datas) };
+        res.render('pages/tokimonedit', data);
     } catch (err) {
         console.error(err);
         res.send("Error " + err);
