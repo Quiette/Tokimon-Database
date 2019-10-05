@@ -38,7 +38,7 @@ app.get('/', (req, res) => res.render('pages/index'));
 app.post('/home', (req, res) => res.redirect('/'));
 
 var count = 0;
-///is equivalent to .get('/', function (req, res) {res.render('pages/index'})
+//is equivalent to .get('/', function (req, res) {res.render('pages/index'})
 
 pool.query('DELETE FROM tokimons', (err, res) => { //REMOVES ROWS
     if (err) {
