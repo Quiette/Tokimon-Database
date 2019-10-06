@@ -228,6 +228,101 @@ app.get('/tokimon/:name/edit', async (req, res) => {
     }
 });
 
+app.post('/tokimon/:name/:trainer/update', async (req, res) => {
+    var sametrainer = false;
+    var totalstats = parseInt(req.body.newfly) + parseInt(req.body.newfight) + parseInt(req.body.newfire) + parseInt(req.body.newwater) + parseInt(req.body.newelectric) + parseInt(req.body.newice);
+    console.log("newstatstotal: ", totalstats);
+    var usedname = false;
+    const client = await pool.connect();
+    console.log("OG name: ", req.params.name);
+    console.log("NEW name: ", req.body.newname);
+    if (req.params.name == req.body.newname) {
+        usedname == false
+        console.log("usedname=false");
+    }
+    else {
+        const check = await client.query('SELECT * FROM tokimons ORDER BY name DESC');
+        const checking = (check) ? check.rows : null;
+        console.log(checking);
+        checking.forEach(function (c) {
+            // console.log("c", c);
+            // console.log("c.name ", c.name);
+            if (c.name == req.body.newname) {
+                usedname = true;
+                console.log("usedname=true");
+            }
+        });
+    }
+    console.log("OG trainer: ", req.params.trainer);
+    console.log("NEW trainer: ", req.body.newtrainer);
+    if (req.body.newtrainer == req.params.trainer) {
+        sametrainer = true;
+    }
+    try {
+        var edittrain = true;
+        var datas = {};
+        if (usedname == false) { //update name not in use (expect if own name)
+            var resulttoki = await client.query("UPDATE tokimons SET name = '" + req.body.newname+ "' WHERE name = '" + req.params.name + "' ");
+            resulttoki = await client.query("UPDATE tokimons SET weight=" + req.body.neww + " WHERE name = '" + req.body.newname + "' ");
+            resulttoki = await client.query("UPDATE tokimons SET height=" + req.body.newh + " WHERE name = '" + req.body.newname + "' ");
+            resulttoki = await client.query("UPDATE tokimons SET fly=" + req.body.newfly + " WHERE name = '" + req.body.newname + "' ");
+            resulttoki = await client.query("UPDATE tokimons SET fight=" + req.body.newfight + " WHERE name = '" + req.body.newname + "' ");
+            resulttoki = await client.query("UPDATE tokimons SET fire=" + req.body.newfire + " WHERE name = '" + req.body.newname + "' ");
+            resulttoki = await client.query("UPDATE tokimons SET water=" + req.body.newwater + " WHERE name = '" + req.body.newname + "' ");
+            resulttoki = await client.query("UPDATE tokimons SET electric=" + req.body.newelectric + " WHERE name = '" + req.body.newname + "' ");
+            resulttoki = await client.query("UPDATE tokimons SET ice=" + req.body.newice + " WHERE name = '" + req.body.newname + "' ");
+            resulttoki = await client.query("UPDATE tokimons SET total=" + totalstats + " WHERE name = '" + req.body.newname + "' ");
+           resulttoki = await client.query("UPDATE tokimons SET trainer='" + req.body.newtrainer + "' WHERE name = '" + req.body.newname + "' ");
+            // need to update const resulttrainer = await client.query("UPDATE trainers SET name = '" + req.body.newname + "' WHERE  name = '" + req.params.name + "' ");
+            var message = "Success! Tokimon " + req.params.name + " has been updated!";
+            var newname = req.body.newname;
+            datas.name = newname;
+            var color = "green";
+        }
+        else { //update name in use, exitttt with this message
+            var message = "Sorry! " + req.body.newname + " is already in use.";
+            var color = "red";
+            datas.name = req.params.name;
+            edittrain = false;
+        }
+        if (sametrainer == false && edittrain == true) {
+            var lowercount=0;
+            var highercount = 0;//update trainer for count-- and new trainer count++
+            console.log("START lower and higher: ", lowercount, highercount);
+            console.log('in fixing trainer')
+            const check = await client.query('SELECT * FROM trainers');
+            const checking = (check) ? check.rows : null;
+            console.log("checking: ",checking);
+            checking.forEach(function (c) {
+                 console.log("c", c);
+                console.log("c.name c.num: ", c.name, c.tokinum);
+                if (c.name == req.body.newtrainer) {
+                    highercount = parseInt(c.tokinum);
+                    highercount++;
+                }
+                if (c.name == req.params.trainer) {
+                    lowercount = parseInt(c.tokinum);
+                    lowercount--;
+                }
+            });
+            console.log("done loop, updating");
+            console.log("lower and higher: ", lowercount, highercount);
+            var updatetokicount = await client.query("UPDATE trainers SET tokinum=" + lowercount + " WHERE name = '" + req.params.trainer + "' ");
+            var updatetokicount = await client.query("UPDATE trainers SET tokinum=" + highercount + " WHERE name = '" + req.body.newtrainer + "' ");
+        }
+        datas.old = req.params.name;
+        datas.msg = message;
+        datas.color = color;
+        console.log("datas=", datas);
+        const data = { 'data': (datas) };
+        res.render('pages/updatetokimon', data);
+        client.release();
+    }
+    catch (err) {
+        console.error(err);
+        res.send("Error " + err);
+    }
+});
 
 app.post('/login', (req, res) => {
     //console.log("post");
