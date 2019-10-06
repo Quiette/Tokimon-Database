@@ -1,39 +1,41 @@
-# node-js-getting-started
+# What is this?
 
-A barebones Node.js app using [Express 4](http://expressjs.com/).
+This is a  Node.js app using [Express 4](http://expressjs.com/) and PostgreSQL to create an 
+interactive online database of "Tokimon" and their Trainers. "Tokimons" are, of course, a parody of "Pokemon".
 
-This application supports the [Getting Started with Node on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs) article - check it out.
+## Where is the application?
 
-## Running Locally
+The application can be found [here](https://tranquil-journey-20855.herokuapp.com/).
 
-Make sure you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://cli.heroku.com/) installed.
+## How do I add Tokimons and Trainers to the Database?
 
+Simply use the upper menu to go to either the Trainer page or the Tokimon page. These pages have a display of what 
+is in their respective Databases. Underneath the table, you will find a link to "Add new Tokimon" or "Add new Trainer".
+
+Please be aware Trainer and Tokimon names are unique. Thus, if your new Trainer/Tokimon has a name already in use, 
+it will not be added to the database.
+
+## How do I delete Tokimons and Trainers from the Database?
+
+To delete, simply go to the respective database page, click "Details" on the Tokimon/Trainer you wish to delete, and 
+then select "Delete", which can be found at the bottom on the details page, beside "Edit". Then click "Ok" from the alert if you are sure.
+
+Please note: A Trainer can only be deleted if all their tokimon are given to other trainers or deleted.
+
+## How do I edit Tokimons and Trainers from the Database?
+
+Follow the directions above, but instead of clicking "Delete", select "Edit." From there simply 
+edit the information and click "UPDATE TOKIMON" or "UPDATE TRAINER".
+
+## What are the extra Features of your app?
+
+Instead of simply having the following:
 ```sh
-$ git clone https://github.com/heroku/node-js-getting-started.git # or clone your own fork
-$ cd node-js-getting-started
-$ npm install
-$ npm start
+$1. The ability to add new Tokimon (with corresponding attributes).
+$2. The ability to change attributes of any of the Tokimons.
+$3. The ability to delete any of the Tokimons.
+$4. The ability to display information about a specific Tokimon. A link (Links) should be provided from the Tokimon info page that links to more info.
+$5. The ability to display all Tokimons currently in the database (including any other information you collect
 ```
-
-Your app should now be running on [localhost:5000](http://localhost:5000/).
-
-## Deploying to Heroku
-
-```
-$ heroku create
-$ git push heroku master
-$ heroku open
-```
-or
-
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
-
-## Documentation
-
-For more information about using Node.js on Heroku, see these Dev Center articles:
-
-- [Getting Started with Node.js on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
-- [Heroku Node.js Support](https://devcenter.heroku.com/articles/nodejs-support)
-- [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs)
-- [Best Practices for Node.js Development](https://devcenter.heroku.com/articles/node-best-practices)
-- [Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)
+I have also added each of the above functions to a second table in the Tokimons Database called "Trainers".
+Additionally, I have also created a nice Home Page that acts as a welcome and answers FAQs of users.
