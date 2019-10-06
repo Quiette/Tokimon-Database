@@ -25,7 +25,7 @@
 <div class="container">
 <div1>
 <form class="" action="/tokimon/<%=r.name%>/<%=r.trainer%>/update" method="post">
-<h2 align="center">Tokimon: <input type="text" name="newname" id="newname" placeholder=<%=r.name%> required maxlength="50"/>
+<h2 align="center">Tokimon: <input type="text" name="newname" id="newname" placeholder=<%=r.name%> value=<%=r.name%> required maxlength="50"/>
 &nbsp&nbsp&nbsp&nbsp&nbsp
 
 Trainer: <select name="newtrainer">
@@ -39,7 +39,7 @@ Trainer: <select name="newtrainer">
 </select></h2>
 
 <br>
-<p align="center"> Height: <input type="number" name="newh" id="newh" placeholder=<%=r.height%> value=<%=r.height%>required min="0"/></p>
+<p align="center"> Height: <input type="number" name="newh" id="newh" placeholder=<%=r.height%> value=<%=r.height%> required min="0"/></p>
 
 <p align="center"> Weight:  <input type="number" name="neww" id="neww" placeholder=<%=r.weight%> value=<%=r.weight%> required min="0"/></p>
 
