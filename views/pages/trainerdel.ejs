@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<%name = data.name%>
+<%message = data.message%>
+<%name = data.name%>
+<%c = data.color%>
+<head>
+<title><%name%> Deleted!</title>
+</head>
+
+
+	<link rel="stylesheet" href="/stylesheets/details.css">
+<div2> 
+<form class="" action="/home" method="post">
+                        <button id="home" type="submit" name="button1">HOME</button>
+</form>
+
+<form class="" action="/tokimons" method="post">
+                        <button id="toki" type="submit" name="button2">TOKIMONS</button>
+</form>
+
+<form class="" action="/trainers" method="post">
+                        <button id="trainer" type="submit" name="button2">TRAINERS</button>
+</form>
+
+</div2>
+		<meta charset="utf-8">
+		<div1>
+	<body>
+		<p align= "center" style="color:<%=c%>"><font size="6"><%=message%> </font></p>
+		<form action="/trainers" method="post">
+			<button type="submit"  class="btn-link">Back to Database</button>
+		</form>
+	</body>
+	</div1>
+</html>

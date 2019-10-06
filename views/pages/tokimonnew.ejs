@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>New Tokimon</title>
+</head>
+
+<link rel="stylesheet" href="/stylesheets/tokimonnew.css">
+<body>
+<div2> 
+<form class="" action="/home" method="post">
+                        <button id="home" type="submit" name="button1">HOME</button>
+</form>
+
+<form class="" action="/tokimons" method="post">
+                        <button id="toki" type="submit" name="button2">TOKIMONS</button>
+</form>
+
+<form class="" action="/trainers" method="post">
+                        <button id="trainer" type="submit" name="button2">TRAINERS</button>
+</form>
+
+</div2>
+<div class="container">
+<div1>
+<form class="" action="/tokimon/add" method="post">
+<h2 align="center">Tokimon: <input type="text" name="newname" id="newname" placeholder="Name..." required maxlength="50"/>
+&nbsp&nbsp&nbsp&nbsp&nbsp
+
+Trainer: <select name="newtrainer">
+<% results.forEach(function(t) { %>
+	<option value= <%=t.name%> > <%=t.name%> </option>
+
+<%});%>
+</select></h2>
+
+<br>
+<p align="center"> Height: <input type="number" name="newh" id="newh" placeholder="Height..." required min="0"/></p>
+
+<p align="center"> Weight:  <input type="number" name="neww" id="neww" placeholder="Weight..."  required min="0"/></p>
+
+<p align="center"> Fly: <input type="number" name="newfly" id="newfly" placeholder="Fly..." required min="0" max="100"/></p>
+
+<p align="center"> Fight: <input type="number" name="newfight" id="newfight" placeholder="Fight..." required min="0" max="100"/></p>
+
+<p align="center"> Fire: <input type="number" name="newfire" id="newfire" placeholder="Fire..." required min="0" max="100"/></p>
+
+<p align="center"> Water: <input type="number" name="newwater" id="newwater" placeholder="Water..." required min="0" max="100"/></p>
+
+<p align="center"> Electric: <input type="number" name="newelectric" id="newelectric" placeholder="Electric..." required min="0" max="100"/></p>
+
+<p align="center"> Ice: <input type="number" name="newice" id="newice" placeholder="Ice..." required min="0" max="100"/></p>
+
+<br><br>
+<button id="tupdate" type="submit" name="tupdate">NEW TOKIMON</button>
+
+<br>
+</div1>
+<br>
+</div>
+</body>
+</html>

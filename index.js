@@ -139,16 +139,22 @@ app.post('/trainer/:name/update', async (req, res) => {
     const client = await pool.connect();
     console.log("OG: ", req.params.name);
     console.log("NEW: ", req.body.newname);
-    const check = await client.query('SELECT * FROM trainers ORDER BY name DESC');
-    const checking = (check) ? check.rows : null;
-    console.log(checking);
-    checking.forEach(function (c) {
-       // console.log("c", c);
-       // console.log("c.name ", c.name);
-        if (c.name == req.body.newname) {
-            flag = false;
-        }
-    });
+    if (req.params.name == req.body.newname) {
+        console.log("same name");
+        flag = false;
+    }
+    else {
+        const check = await client.query('SELECT * FROM trainers ORDER BY name DESC');
+        const checking = (check) ? check.rows : null;
+        console.log(checking);
+        checking.forEach(function (c) {
+            // console.log("c", c);
+            // console.log("c.name ", c.name);
+            if (c.name == req.body.newname) {
+                flag = false;
+            }
+        });
+    }
     try {
         var datas = {};
         if (flag==true) {
@@ -171,6 +177,78 @@ app.post('/trainer/:name/update', async (req, res) => {
             const data = { 'data': (datas) };
             res.render('pages/updatetrainer', data);
             client.release();
+    }
+    catch (err) {
+        console.error(err);
+        res.send("Error " + err);
+    }
+});
+
+app.get('/trainer/:name/delete', async (req, res) => {
+    const client = await pool.connect();
+    var check = await client.query("SELECT tokinum FROM trainers WHERE name= '" + req.params.name+"'");
+    const checking = (check) ? check.rows : null;
+    console.log("checking[0].tokinum: ", checking[0].tokinum);
+    var datas = {};
+    var message; 
+    var color;
+    if (checking[0].tokinum == 0) {
+        check = await client.query("DELETE FROM trainers WHERE name= '" + req.params.name + "'");
+        message = "Trainer " + req.params.name + " has been deleted!";
+        color = "green";
+
+    }
+    else {
+        message = "Trainer " + req.params.name + " has " + checking[0].tokinum + " Tokimon and therefore cannot be deleted!";
+        color = "red";
+    }
+    console.log("msg: ", message);
+    datas.color = color;
+    datas.message = message;
+    datas.name = req.params.name;
+    const data = { 'data': (datas) };
+    res.render('pages/trainerdel', data);
+    //const check = await client.query("DELETE FROM trainers WHERE name= '" + req.params.name+"'");*/
+});
+
+app.get('/trainer/new', async (req, res) => {
+    res.render('pages/trainernew');
+});
+
+app.post('/trainer/add', async (req, res) => {
+    const client = await pool.connect();
+    var flag = true;
+    const check = await client.query('SELECT * FROM trainers ORDER BY name DESC');
+    const checking = (check) ? check.rows : null;
+    console.log(checking);
+    checking.forEach(function (c) {
+        // console.log("c", c);
+        // console.log("c.name ", c.name);
+        if (c.name == req.body.newname) {
+            flag = false;
+        }
+    });
+    try {
+        var datas = {};
+        if (flag == true) {
+            const resulttoki = await client.query("INSERT INTO trainers(name, tokinum) values('" + req.body.newname +"', 0)");
+            var message = "Success! Trainer " + req.body.newname + " has been added!";
+            var name = req.body.newname;
+            datas.name = name;
+            var color = "green";
+        }
+        else {
+            var message = "Sorry! " + req.body.newname + " is already in use.";
+            var color = "red";
+            datas.name = "Trainer Not";
+        }
+        datas.old = req.params.name;
+        datas.msg = message;
+        datas.color = color;
+        console.log("datas=", datas);
+        const data = { 'data': (datas) };
+        res.render('pages/traineradd', data);
+        client.release();
     }
     catch (err) {
         console.error(err);
@@ -263,9 +341,9 @@ app.post('/tokimon/:name/:trainer/update', async (req, res) => {
         var datas = {};
         if (usedname == false) { //update name not in use (expect if own name)
             var resulttoki = await client.query("UPDATE tokimons SET name = '" + req.body.newname+ "' WHERE name = '" + req.params.name + "' ");
-            resulttoki = await client.query("UPDATE tokimons SET weight=" + req.body.neww + " WHERE name = '" + req.body.newname + "' ");
+           resulttoki = await client.query("UPDATE tokimons SET weight=" + req.body.neww + " WHERE name = '" + req.body.newname + "' ");
             resulttoki = await client.query("UPDATE tokimons SET height=" + req.body.newh + " WHERE name = '" + req.body.newname + "' ");
-            resulttoki = await client.query("UPDATE tokimons SET fly=" + req.body.newfly + " WHERE name = '" + req.body.newname + "' ");
+           resulttoki = await client.query("UPDATE tokimons SET fly=" + req.body.newfly + " WHERE name = '" + req.body.newname + "' ");
             resulttoki = await client.query("UPDATE tokimons SET fight=" + req.body.newfight + " WHERE name = '" + req.body.newname + "' ");
             resulttoki = await client.query("UPDATE tokimons SET fire=" + req.body.newfire + " WHERE name = '" + req.body.newname + "' ");
             resulttoki = await client.query("UPDATE tokimons SET water=" + req.body.newwater + " WHERE name = '" + req.body.newname + "' ");
@@ -323,6 +401,87 @@ app.post('/tokimon/:name/:trainer/update', async (req, res) => {
         res.send("Error " + err);
     }
 });
+
+app.get('/tokimon/:name/:trainer/delete', async (req, res) => {
+    const client = await pool.connect();
+    var check = await client.query("DELETE FROM tokimons WHERE name= '" + req.params.name + "'");
+    check = await client.query("SELECT tokinum FROM trainers WHERE name= '" + req.params.trainer + "'");
+    const checking = (check) ? check.rows : null;
+    console.log("checking[0].tokinum: ", checking[0].tokinum);
+    var newtokinum = parseInt(checking[0].tokinum);
+    newtokinum--;
+    console.log("newtokinum= ", newtokinum);
+    check = await client.query("UPDATE trainers SET tokinum=" + newtokinum + " WHERE name = '" + req.params.trainer + "' ");
+    var datas = {};
+    var message = "Tokimon " + req.params.name + " has been deleted!";
+    var color = "green";
+    console.log("msg: ", message);
+    datas.color = color;
+    datas.message = message;
+    datas.name = req.params.name;
+    const data = { 'data': (datas) };
+    res.render('pages/tokimondel', data);
+    //const check = await client.query("DELETE FROM trainers WHERE name= '" + req.params.name+"'");*/
+});
+
+app.get('/tokimon/new', async (req, res) => {
+    try {
+        const client = await pool.connect()
+        const result = await client.query('SELECT * FROM trainers');
+        const results = { 'results': (result) ? result.rows : null };
+        res.render('pages/tokimonnew', results);
+        client.release();
+    } catch (err) {
+        console.error(err);
+        res.send("Error " + err);
+    }
+});
+
+app.post('/tokimon/add', async (req, res) => {
+    const client = await pool.connect();
+    var usedname = false;
+    var totalstats = parseInt(req.body.newfly) + parseInt(req.body.newfight) + parseInt(req.body.newfire) + parseInt(req.body.newwater) + parseInt(req.body.newelectric) + parseInt(req.body.newice);
+    var check = await client.query('SELECT * FROM tokimons');
+    var checking = (check) ? check.rows : null;
+    console.log(checking);
+    checking.forEach(function (c) {
+        // console.log("c", c);
+        // console.log("c.name ", c.name);
+        if (c.name == req.body.newname) {
+            usedname = true;
+            console.log("usedname=true");
+        }
+    });
+    try {
+        var datas = {};
+        if (usedname == false) { //make new tokimon
+            check = await client.query("INSERT INTO tokimons (name, weight, height, fly, fight, fire, water, electric, ice, total, trainer)VALUES( '" + req.body.newname + "', " + req.body.neww + ", " + req.body.newh + ", " + req.body.newfly + ", " + req.body.newfight + ",  " + req.body.newfire + ",  " + req.body.newwater + ",  " + req.body.newelectric + ",  " + req.body.newice + ",  " + totalstats + ", '" + req.body.newtrainer + "' )");
+            check = await client.query("SELECT tokinum FROM trainers WHERE name= '" + req.body.newtrainer + "'");
+            checking = (check) ? check.rows : null;
+            var newtokinum = parseInt(checking[0].tokinum);
+            newtokinum++;
+            console.log("newtokinum= ", newtokinum);
+            check = await client.query("UPDATE trainers SET tokinum=" + newtokinum + " WHERE name = '" + req.body.newtrainer + "' ");
+            datas.color = "green";
+            datas.message = "Tokimon " + req.body.newname + " has been added!";
+            datas.name = req.body.newname;
+        }
+        else {
+            datas.color = "red";
+            datas.message = "Tokimon " + req.body.newname + " is already in the database!";
+            datas.name = "Tokimon Not";
+        }
+        console.log("datas=", datas);
+        const data = { 'data': (datas) };
+        res.render('pages/tokimonadd', data);
+        client.release();
+    }
+    catch (err) {
+        console.error(err);
+        res.send("Error " + err);
+    }
+});
+//////////////////////////////////////
 
 app.post('/login', (req, res) => {
     //console.log("post");

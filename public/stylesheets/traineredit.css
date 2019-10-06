@@ -111,3 +111,20 @@ div2 {
     background: cornflowerblue;
     border-color: cornflowerblue;
 }
+
+.btn-link {
+    position: absolute;
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+    color: #0000EE;
+    padding: 0;
+    text-decoration: underline;
+    left: 49%;
+    text-decoration: underline;
+    font-family: inherit;
+    font-size: inherit;
+    bottom: 15px;
+    font-size: 18px;
+}

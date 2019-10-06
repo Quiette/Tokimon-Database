@@ -47,7 +47,7 @@
 <p align="center"> Total: <%= r.total %> </p>
 <br><br>
  
-<p align="center" id='change'><a href="edit">Edit Tokimon</a> || <a href="delete">Delete Tokimon</a></p>
+<p align="center" id='change'><a href="edit">Edit Tokimon</a> || <a href="<%= r.trainer %>/delete" onclick="return confirm('Are you sure you want to delete this Tokimon?');">Delete Tokimon</a></p>
 </div1>
 <br>
 </div>

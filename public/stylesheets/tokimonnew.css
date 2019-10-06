@@ -4,7 +4,6 @@ table {
     width: 80%;
     right: 10%;
     position: absolute;
-    
 }
 
 div1 {
@@ -15,7 +14,7 @@ div1 {
     width: 90%;
     height: 577px;
     top: 5%;
-    overflow:auto;
+    overflow: auto;
 }
 
 tr:first-child {
@@ -49,7 +48,7 @@ div2 {
     width: 20%;
 }
 
-#home, #trainer, #toki {
+#home, #trainer, #toki{
     color: white;
     position: absolute;
     top: 0;
@@ -70,7 +69,7 @@ div2 {
 }
 
 #trainer:hover {
-    background-color: grey;
+     background-color: grey;
 }
 
 
@@ -87,35 +86,31 @@ div2 {
 #toki:hover {
     background-color: grey;
 }
-#edit{
-    position: absolute;
-    left: 43.2%;
-    bottom: 10px;
-}
+
 #back {
     position: absolute;
     left: 49.5%;
     bottom: 10px;
 }
-#bd {
+
+#tupdate {
     position: absolute;
-    left: 43%;
-    bottom: 10px;
+    text-align: center;
+    border: 2px solid black;
+    outline: none;
+    padding: 10px;
+    color: #494949;
+    background: #ffffff;
+    bottom: 10%;
+    left: 45%;
+    transition-duration: 0.2s;
+}
+#tupdate:hover {
+        color: white;
+        background: cornflowerblue;
+        border-color: cornflowerblue;
 }
 
-.btn-link {
-    position: absolute;
-    border: none;
-    outline: none;
-    background: none;
-    cursor: pointer;
-    color: #0000EE;
-    padding: 0;
-    text-decoration: underline;
-    left: 43%;
-    text-decoration: underline;
-    font-family: inherit;
-    font-size: inherit;
-    bottom: 15px;
-    font-size: 25px;
+input[type=number] {
+    width: 100px;
 }
