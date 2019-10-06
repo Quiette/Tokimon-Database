@@ -39,7 +39,7 @@ it will not be added to the database.
 
 ## What are the extra Features of your app?
 
-Instead of simply having the following:
+Instead of simply JUST having the following:
 ```sh
 1. The ability to add new Tokimon (with corresponding attributes).
 2. The ability to change attributes of any of the Tokimons.
