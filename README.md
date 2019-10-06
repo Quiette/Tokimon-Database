@@ -47,6 +47,6 @@ Instead of simply JUST having the following:
 4. The ability to display information about a specific Tokimon. A link (Links) should be provided from the Tokimon info page that links to more info.
 5. The ability to display all Tokimons currently in the database (including any other information you collect
 ```
-I have also added each of the above functions to a second table in the Tokimons Database called "Trainers".
-(ie. the extra features are "Add Trainer", "Edit Trainer", "Delete Trainer", "Trainer Details Page", and a "Trainer Database" page)
+I have also added each of the above functions to a second table in the Tokimons Database called "Trainers"
+(ie. the extra features are "Add Trainer", "Edit Trainer", "Delete Trainer", "Trainer Details Page", and a "Trainer Database" page).
 Additionally, I have also created a nice Home Page that acts as a welcome and answers FAQs of users.
