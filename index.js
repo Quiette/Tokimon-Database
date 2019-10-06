@@ -50,7 +50,7 @@ pool.query('DELETE FROM trainers', (err, res) => { //REMOVES ROWS
     if (err) {
         console.log(err, res);
     }
-});*//
+});*/
 
 pool.query("INSERT INTO tokimons (name, weight, height, fly, fight, fire, water, electric, ice, total, trainer)VALUES('Edelgard', 120, 125, 0, 55, 90, 0, 0, 0, 105, 'Byleth') ON CONFLICT (name) DO NOTHING", (err, res) => {
     if (err) {
