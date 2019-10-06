@@ -40,7 +40,7 @@ app.post('/home', (req, res) => res.redirect('/'));
 var count = 0;
 /////is equivalent to .get('/', function (req, res) {res.render('pages/index'})
 
-pool.query('DELETE FROM tokimons', (err, res) => { //REMOVES ROWS
+/*pool.query('DELETE FROM tokimons', (err, res) => { //REMOVES ROWS
     if (err) {
         console.log(err, res);
     }
@@ -50,7 +50,7 @@ pool.query('DELETE FROM trainers', (err, res) => { //REMOVES ROWS
     if (err) {
         console.log(err, res);
     }
-});
+});*/
 
 pool.query("INSERT INTO tokimons (name, weight, height, fly, fight, fire, water, electric, ice, total, trainer)VALUES('Edelgard', 120, 125, 0, 55, 90, 0, 0, 0, 105, 'Byleth') ON CONFLICT (name) DO NOTHING", (err, res) => {
     if (err) {
