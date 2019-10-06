@@ -15,8 +15,9 @@ div1 {
     width: 86%;
     padding-left: 2%;
     padding-right: 2%;
-    height: 85%;
+    height: 577px;
     top: 5%;
+    overflow: auto;
 }
 
 div2 {
